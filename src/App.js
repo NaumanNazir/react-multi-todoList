@@ -13,6 +13,9 @@ export class App extends Component {
   render() {
     return (
       <div>
+        <input type="text" placeholder="Add a todo"/>
+        <button> Add </button> 
+
         <TodoList list={this.state.todoLists}/>
       </div>
     )
