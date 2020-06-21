@@ -6,14 +6,14 @@ export class App extends Component {
     super(props)
 
     this.state = {
-      todoLists: []
+      todoLists: ["Wash your clothes", "do the dishes", "go for grocery"]
     }
   }
 
   render() {
     return (
       <div>
-        <TodoList />
+        <TodoList list={this.state.todoLists}/>
       </div>
     )
   }

@@ -1,9 +1,16 @@
 import React from 'react'
 
-function TodoList() {
+function TodoList(props) {
   return (
     <div>
-      Hi from TodoList Compoent
+      <h2> Things todo: </h2>
+      <ul>
+        {
+          props.list.map((todo) => (
+            <li> {todo} </li>
+          ))
+        }
+      </ul>
     </div>
   )
 }
