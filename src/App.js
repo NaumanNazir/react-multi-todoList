@@ -12,6 +12,18 @@ export class App extends Component {
 
     this.clearAll = this.clearAll.bind(this)
     this.handleTodoInput = this.handleTodoInput.bind(this)
+    this.handleAddTodo = this.handleAddTodo.bind(this)
+  }
+
+  handleAddTodo(e) {
+    e.preventDefault()
+
+    this.setState((currentState) => {
+      return {
+        todoLists: currentState.todoLists.concat(this.state.input),
+        input: ""
+      }
+    })
   }
 
   handleTodoInput(e) {
@@ -32,16 +44,21 @@ export class App extends Component {
   render() {
     return (
       <div>
-        <input 
-          type="text" 
-          placeholder="Add a todo"
-          value={this.state.input}
-          onChange={this.handleTodoInput}
-        />
-        <button> Add </button> 
+        <form onSubmit={this.handleAddTodo}>
+          <input 
+            type        = "text" 
+            placeholder = "Add a todo"
+            value       = {this.state.input}
+            onChange    = {this.handleTodoInput}
+          />
+          <button> Add </button> 
+        </form>
+
         <button onClick={this.clearAll}> Clear all </button>
 
-        <TodoList list={this.state.todoLists}/>
+        <TodoList 
+          list={this.state.todoLists}
+        />
       </div>
     )
   }
