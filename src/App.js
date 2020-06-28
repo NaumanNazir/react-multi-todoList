@@ -1,30 +1,39 @@
 import React, { Component } from 'react'
 import TodoList from "./TodoList"
+import Nav from "./Nav"
 
 export class App extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      todoLists: ["Wash your clothes", "do the dishes", "go for grocery"],
+      todoLists: [],
+      activeTodo: "all",
       input: ""
     }
 
     this.clearAll = this.clearAll.bind(this)
+    this.handleSelectTodo = this.handleSelectTodo.bind(this)
     this.handleTodoInput = this.handleTodoInput.bind(this)
-    this.handleAddTodo = this.handleAddTodo.bind(this)
+    // this.handleAddTodo = this.handleAddTodo.bind(this)
   }
 
-  handleAddTodo(e) {
-    e.preventDefault()
-
-    this.setState((currentState) => {
-      return {
-        todoLists: currentState.todoLists.concat(this.state.input),
-        input: ""
-      }
+  handleSelectTodo(todo) {
+    this.setState({
+      activeTodo: todo
     })
   }
+
+  // handleAddTodo(e) {
+  //   e.preventDefault()
+
+  //   this.setState((currentState) => {
+  //     return {
+  //       todoLists: currentState.todoLists.concat(this.state.input),
+  //       input: ""
+  //     }
+  //   })
+  // }
 
   handleTodoInput(e) {
     const value = e.target.value
@@ -56,9 +65,9 @@ export class App extends Component {
 
         <button onClick={this.clearAll}> Clear all </button>
 
-        <TodoList 
-          list={this.state.todoLists}
-        />
+        <Nav onSelectList={this.handleSelectTodo}/>
+
+        <h1> Active language: {this.state.activeTodo} </h1>
       </div>
     )
   }
