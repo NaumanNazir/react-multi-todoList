@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import TodoList from "./TodoList"
-import Nav from "./Nav"
+import Form from './Form'
+import Nav from './Nav'
+import TodoList from './TodoList'
 
 export class App extends Component {
   constructor(props) {
@@ -8,42 +9,51 @@ export class App extends Component {
 
     this.state = {
       todoLists: [],
-      activeTodo: "all",
+      activeList: "all",
       input: ""
     }
 
     this.clearAll = this.clearAll.bind(this)
     this.handleSelectTodo = this.handleSelectTodo.bind(this)
     this.handleTodoInput = this.handleTodoInput.bind(this)
-    // this.handleAddTodo = this.handleAddTodo.bind(this)
+    this.handleAddTodo = this.handleAddTodo.bind(this)
   }
 
+  // 
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (prevState.activeList !== this.state.activeList)
+  //     this.handleAddTodo(this.state.activeList)  
+  // }
+
+  // handle categories
   handleSelectTodo(todo) {
     this.setState({
-      activeTodo: todo
+      activeList: todo
     })
   }
 
-  // handleAddTodo(e) {
-  //   e.preventDefault()
+  // sets to list
+  handleAddTodo(e) {
+    e.preventDefault()
 
-  //   this.setState((currentState) => {
-  //     return {
-  //       todoLists: currentState.todoLists.concat(this.state.input),
-  //       input: ""
-  //     }
-  //   })
-  // }
+    this.setState((currentState) => {
+      return {
+        todoLists: currentState.todoLists.concat(this.state.input),
+        input: ""
+      }
+    })
+  }
 
+  // taking input value
   handleTodoInput(e) {
     const value = e.target.value
-    console.log(value)
 
     this.setState({
       input: value
     })
   }
 
+  // to clear everything
   clearAll() {
     this.setState({
       todoLists: []
@@ -53,21 +63,16 @@ export class App extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.handleAddTodo}>
-          <input 
-            type        = "text" 
-            placeholder = "Add a todo"
-            value       = {this.state.input}
-            onChange    = {this.handleTodoInput}
-          />
-          <button> Add </button> 
-        </form>
-
-        <button onClick={this.clearAll}> Clear all </button>
+        <Form 
+          onAdd={this.handleAddTodo}
+          value={this.handleTodoInput}
+        />
 
         <Nav onSelectList={this.handleSelectTodo}/>
 
-        <h1> Active language: {this.state.activeTodo} </h1>
+        <TodoList list={this.state.todoLists} listType={this.state.activeList}/>
+
+        <button onClick={this.clearAll}> Clear all </button>
       </div>
     )
   }

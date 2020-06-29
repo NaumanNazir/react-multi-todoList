@@ -7,7 +7,9 @@ function Nav(props) {
       <ul>
         {
           lists.map((list) => (
-            <li key={list} onClick={() => props.onSelectList}> {list} </li>
+            <li key={list} onClick={() => props.onSelectList(list)}> 
+              {list} 
+            </li>
           ))
         }
       </ul>

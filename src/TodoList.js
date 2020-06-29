@@ -3,7 +3,7 @@ import React from 'react'
 function TodoList(props) {
   return (
     <div>
-      <h2> Things todo: </h2>
+      <h2> {props.listType} </h2>
       <ul>
         {
           props.list.map((todo) => (
